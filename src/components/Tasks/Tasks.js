@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/task")
+    fetch("https://fast-cliffs-77178.herokuapp.com/task")
       .then((res) => res.json())
       .then((data) => setTasks(data));
   }, [tasks]);
 
   const handleDelete =(id)=>{
-    const url = `http://localhost:5000/task/${id}`
+    const url = `https://fast-cliffs-77178.herokuapp.com/task/${id}`
     
     fetch(url, {
         method: 'DELETE'
@@ -22,6 +23,10 @@ const Tasks = () => {
     })
 }
 
+
+const handleComplete=()=>{
+    toast('Task Completed')
+}
 
 
   return (
@@ -43,6 +48,7 @@ const Tasks = () => {
                   <td>{task.task}</td>
                   <td>
                     <input
+                    onClick={handleComplete}
                       className="ml-5"
                       type="checkbox"
                       name="complete"

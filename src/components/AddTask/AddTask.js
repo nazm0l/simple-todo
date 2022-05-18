@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 
 const AddTask = () => {
   const handleSubmit = (e) => {
@@ -10,7 +11,7 @@ const AddTask = () => {
       description: description,
     };
     console.log(data);
-    fetch("http://localhost:5000/task", {
+    fetch("https://fast-cliffs-77178.herokuapp.com/task", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -19,6 +20,7 @@ const AddTask = () => {
     })
       .then((res) => res.json())
       .then((result) => console.log(result));
+      toast('Task Added')
 
     e.target.reset();
   };
