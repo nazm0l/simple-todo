@@ -1,9 +1,15 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Home from './components/Home/Home';
+import Login from './components/Login/Login';
 
 function App() {
   return (
-    <div className="App">
-      <h2>Lets start the mission</h2>
+    <div className="container mx-auto bg-red-100 rounded-lg">
+      <Routes>
+        <Route path='/' element={<Home></Home>}></Route>
+        <Route path='/login' element={<Login></Login>}></Route>
+      </Routes>
     </div>
   );
 }
