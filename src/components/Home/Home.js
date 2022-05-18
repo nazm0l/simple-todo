@@ -1,6 +1,11 @@
+import { signOut } from "firebase/auth";
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 
 const Home = () => {
+
+    const [user] = useAuthState(auth);
 
     const handleSubmit = (e) =>{
         e.preventDefault();
@@ -9,9 +14,14 @@ const Home = () => {
         console.log(task, description);
     }
 
+    const logout =()=>{
+        signOut(auth);
+    }
+
   return (
-    <div>
+    <div className="bg-red-100 rounded-lg">
       <h2 className="text-4xl text-center font-bold mt-10 p-4">TODO APP</h2>
+      <span className="flex justify-center"><span className="text-xl mt-2">{user?.displayName}</span>{user? <button onClick={logout} className="btn btn-link">LogOut</button> : <p>ok</p> }</span>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 mt-5">
         <div className="bg-green-300 p-20 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
           <h2 className="text-xl text-center font-semibold mb-5">Your Task</h2>
@@ -28,7 +38,7 @@ const Home = () => {
           <form onSubmit={handleSubmit}>
             <div>
               <label
-                for="first_name"
+                htmlFor="first_name"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
               >
                 Task name
@@ -44,7 +54,7 @@ const Home = () => {
             </div>
             <div className="mt-2">
               <label
-                for="last_name"
+                htmlFor="last_name"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
               >
                 Task Description
@@ -58,7 +68,7 @@ const Home = () => {
                 required
               />
             </div>
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-3">Add Task</button>
+            <button type="submit" className="btn btn-primary mt-5 w-full">Add Task</button>
           </form>
         </div>
       </div>
